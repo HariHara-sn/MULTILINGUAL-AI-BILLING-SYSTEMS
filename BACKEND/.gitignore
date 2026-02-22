@@ -72,5 +72,3 @@ venv.bak/
 # PyCharm
 .idea/
 
-# Local data / Images
-POC-IMAGES/

@@ -1,11 +1,9 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
 from app.controllers.billing_controller import process_voice_text
+from app.models.product_model import BillingRequest
 
 router = APIRouter()
 
-class BillingRequest(BaseModel):
-    text: str
 
 @router.post("/generate-bill")
 async def generate_bill_route(request: BillingRequest):

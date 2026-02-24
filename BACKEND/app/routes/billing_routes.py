@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from app.controllers.billing_controller import process_voice_text
 from app.models.product_model import BillingRequest
+from app.utils.logger import logger
 
 router = APIRouter()
 

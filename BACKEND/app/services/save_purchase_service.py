@@ -1,7 +1,8 @@
 # save user data in db
 from datetime import datetime
-from app.config.database import db
+from app.config import database as db_config
 from app.models.product_model import SavePurchase
+from app.utils.logger import logger
 
 async def save_purchase(purchase: SavePurchase):
     document = {
@@ -12,11 +13,6 @@ async def save_purchase(purchase: SavePurchase):
         "created_at": datetime.utcnow()
     }
 
-    await db.user_purchases.insert_one(document)
+    result = await db_config.db.user_purchases.insert_one(document)
+    logger.info(f"Successfully saved purchase for {purchase.phone}. Doc ID: {result.inserted_id}")
 
-async def get_purchase_history(phone: str):
-    cursor = db.user_purchases.find({"phone": phone}).sort("created_at", -1)
-    purchases = await cursor.to_list(length=100)
-    for purchase in purchases:
-        purchase["_id"] = str(purchase["_id"])
-    return purchases

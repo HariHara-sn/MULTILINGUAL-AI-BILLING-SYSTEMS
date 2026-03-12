@@ -5,6 +5,8 @@ from app.models.product_model import SavePurchase
 from app.utils.logger import logger
 
 async def save_purchase(purchase: SavePurchase):
+    # Fix: Lazy access to avoid NoneType at startup
+    collection = db_config.db.user_purchases
     document = {
         "customer_name": purchase.name,
         "phone": purchase.phone,
@@ -13,6 +15,6 @@ async def save_purchase(purchase: SavePurchase):
         "created_at": datetime.utcnow()
     }
 
-    result = await db_config.db.user_purchases.insert_one(document)
-    logger.info(f"Successfully saved purchase for {purchase.phone}. Doc ID: {result.inserted_id}")
+    result = await collection.insert_one(document)
 
+    logger.info(f"Successfully saved purchase for {purchase.phone}. Doc ID: {result.inserted_id}")

@@ -13,3 +13,10 @@ ______________________________________
 | WARNING  | Yellow                  |
 | ERROR    | Red                     |
 | CRITICAL | Bright Red              |
+
+
+To run the system locally:
+
+DataBase : run the database
+Backend: cd BACKEND && .\venv\Scripts\python -m uvicorn app.main:app --reload --port 8000
+Frontend: cd FRONTEND && npm run dev (running on port 3000)

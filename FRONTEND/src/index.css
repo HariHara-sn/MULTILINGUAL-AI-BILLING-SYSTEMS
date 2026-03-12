@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+/* ─── Base reset & dark theme ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #0f172a;
+  --bg-card:     #1e293b;
+  --bg-muted:    #334155;
+  --primary:     #6366f1;
+  --primary-light:#818cf8;
+  --accent:      #22d3ee;
+  --success:     #22c55e;
+  --danger:      #ef4444;
+  --warning:     #f59e0b;
+  --text:        #f1f5f9;
+  --text-muted:  #94a3b8;
+  --border:      #334155;
+  --radius:      0.75rem;
+}
+
+html, body, #root {
+  height: 100%;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg-muted); border-radius: 3px; }
+
+/* ─── Glassmorphism card ─────────────────────────────────── */
+.glass {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: var(--radius);
+}
+
+/* ─── Utility: gradient text ─────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-light), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Table ──────────────────────────────────────────────── */
+.bill-table th {
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--primary-light);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.75rem 1rem;
+}
+.bill-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+.bill-table tr:last-child td { border-bottom: none; }
+.bill-table tr:hover td { background: rgba(99, 102, 241, 0.05); }
+
+/* ─── Button base ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #818cf8, #6366f1);
+  box-shadow: 0 6px 20px rgba(99,102,241,0.45);
+  transform: translateY(-1px);
+}
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(239,68,68,0.3);
+}
+.btn-danger:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.btn-success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(34,197,94,0.3);
+}
+.btn-success:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  background: var(--bg-muted);
+  color: var(--text);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Input ───────────────────────────────────────────────── */
+.input {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--text);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+.input::placeholder { color: var(--text-muted); }
+
+/* ─── Modal overlay ───────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* ─── Mic button ──────────────────────────────────────────── */
+.mic-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.mic-btn.idle {
+  background: linear-gradient(135deg, #4338ca, #6366f1);
+  box-shadow: 0 6px 24px rgba(99,102,241,0.4);
+}
+.mic-btn.recording {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  box-shadow: 0 6px 24px rgba(239,68,68,0.5);
+  animation: micPulse 1.5s ease-in-out infinite;
+}
+.mic-btn.disabled {
+  background: var(--bg-muted);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+@keyframes micPulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(239,68,68,0.4); }
+  50%       { box-shadow: 0 6px 40px rgba(239,68,68,0.8), 0 0 0 12px rgba(239,68,68,0.1); }
+}
+
+/* ─── Badge ───────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.badge-admin   { background: rgba(234,179,8,0.15);  color: #fbbf24; }
+.badge-employee{ background: rgba(34,197,94,0.15);  color: #4ade80; }
+
+/* ─── Animations ──────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.animate-fade-in  { animation: fadeIn  0.3s ease-out; }
+.animate-slide-up { animation: slideUp 0.4s ease-out; }

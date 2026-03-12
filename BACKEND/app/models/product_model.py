@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import List
+from typing import Optional
 
 class Product(BaseModel):
     name: str
@@ -20,3 +21,15 @@ class SavePurchase(BaseModel):
     phone: str
     items: List[BillItem]
     total: float
+
+class AddProduct(BaseModel):
+    product_name : str
+    price : float
+    unit : str
+
+class UpdateProduct(BaseModel):
+    product_name: str
+    price: Optional[float] = None
+    unit: Optional[str] = None
+
+    
